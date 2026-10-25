@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>案卷 · 演示</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f6f7f9;
+        --raised: #ffffff;
+        --ink: #0b1220;
+        --soft: #475467;
+        --faint: #667085;
+        --line: #e4e7ec;
+        --line-strong: #cfd6e0;
+        --seal: #1a73e8;
+        --seal-soft: #e8f0fe;
+        --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", Georgia, serif;
+        --sans: "Inter", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+        --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 99;
+        display: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      }
+      a { color: inherit; }
+      ::selection { background: var(--seal); color: var(--raised); }
+      .mono { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+      header.top {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+        background: color-mix(in srgb, var(--paper) 88%, transparent);
+        backdrop-filter: blur(14px);
+      }
+      .top-inner { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+      .seal {
+        width: 29px; height: 29px; border: 0; border-radius: 8px; background: var(--seal);
+        display: grid; place-items: center; color: #fff; font-family: var(--serif);
+        font-weight: 600; font-size: 15px; transform: rotate(-3deg);
+      }
+      .brand b { font-family: var(--serif); font-size: 21px; letter-spacing: 0.1em; font-weight: 600; }
+      .brand span { color: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; }
+      .actions { display: flex; align-items: center; gap: 8px; }
+      .btn {
+        display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 16px;
+        border-radius: 999px; border: 1px solid var(--line-strong); background: var(--raised);
+        text-decoration: none; font-size: 12px; color: var(--ink); transition: 0.2s;
+      }
+      .btn:hover { border-color: color-mix(in srgb, var(--seal) 45%, var(--line)); color: var(--seal); }
+      .btn.primary { background: var(--seal); border-color: var(--seal); color: #fff; }
+      .btn.primary:hover { background: #0b57d0; border-color: #0b57d0; color: #fff; }
+      .hero { padding: 64px 0 34px; border-bottom: 1px solid var(--line); }
+      .eyebrow { display: flex; align-items: center; gap: 12px; color: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: 0.24em; }
+      .eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--line-strong); }
+      h1 { font-family: var(--serif); font-size: clamp(36px, 6vw, 66px); line-height: 1.16; letter-spacing: -0.01em; margin: 24px 0 0; font-weight: 600; max-width: 850px; }
+      h1 em { font-style: normal; color: var(--seal); }
+      .lede { max-width: 660px; color: var(--soft); font-size: 15px; line-height: 1.9; margin-top: 22px; }
+      .meta-row { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 26px; color: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; }
+      .meta-row b { color: var(--ink); font-weight: 500; }
+      .script { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin: 34px 0 0; border: 1px solid var(--line); border-radius: 10px; background: var(--raised); overflow: hidden; }
+      .script div { padding: 18px 20px; border-right: 1px solid var(--line); }
+      .script div:last-child { border-right: 0; }
+      .script .num { color: var(--seal); font-family: var(--mono); font-size: 9px; }
+      .script h3 { margin: 8px 0 6px; font-family: var(--serif); font-size: 15px; font-weight: 600; }
+      .script p { margin: 0; color: var(--faint); font-size: 11.5px; line-height: 1.75; }
+      main { padding: 14px 0 80px; }
+      .group { padding-top: 28px; }
+      .group-head { display: flex; align-items: baseline; gap: 14px; margin: 44px 0 18px; }
+      .group-head h2 { margin: 0; font-family: var(--serif); font-size: 22px; font-weight: 600; letter-spacing: 0.04em; }
+      .group-head .rule { flex: 1; height: 1px; background: var(--line); }
+      .group-head .count { color: var(--faint); font-family: var(--mono); font-size: 9px; }
+      figure { margin: 0 0 26px; }
+      figure img {
+        display: block; width: 100%; height: auto; border: 1px solid var(--line);
+        border-radius: 10px; background: var(--raised); box-shadow: 0 24px 60px -42px rgba(46, 36, 18, 0.45);
+      }
+      figcaption { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 10px; color: var(--faint); font-size: 11px; line-height: 1.7; }
+      figcaption b { color: var(--ink); font-weight: 500; }
+      figcaption .tag { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.12em; color: var(--seal); border: 1px solid color-mix(in srgb, var(--seal) 30%, transparent); background: var(--seal-soft); border-radius: 3px; padding: 2px 5px; }
+      .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .phones { display: grid; grid-template-columns: 320px 320px; gap: 34px; justify-content: center; align-items: start; padding: 10px 0 6px; }
+      .phone { border: 1px solid var(--line-strong); border-radius: 26px; padding: 9px; background: #1c1a15; box-shadow: 0 30px 60px -40px rgba(46,36,18,.5); }
+      .phone img { display: block; width: 100%; height: auto; border-radius: 18px; }
+      .phone-cap { text-align: center; margin-top: 12px; color: var(--faint); font-size: 11px; }
+      .note { margin: 30px 0 0; padding: 16px 18px; border: 1px solid color-mix(in srgb, var(--seal) 22%, var(--line)); background: color-mix(in srgb, var(--seal-soft) 40%, var(--paper)); border-radius: 8px; color: var(--soft); font-size: 12px; line-height: 1.8; }
+      .note b { color: var(--ink); }
+      footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+      @media (max-width: 900px) {
+        .script { grid-template-columns: 1fr; }
+        .script div { border-right: 0; border-bottom: 1px solid var(--line); }
+        .script div:last-child { border-bottom: 0; }
+        .two { grid-template-columns: 1fr; }
+        .phones { grid-template-columns: 1fr; }
+        .phone { max-width: 340px; margin: 0 auto; }
+        h1 { font-size: clamp(34px, 9vw, 48px); }
+        .hero { padding-top: 42px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-inner">
+        <a class="brand" href="../">
+          <span class="seal">案</span>
+          <b>案卷</b>
+          <span>DEMO</span>
+        </a>
+        <div class="actions">
+          <a class="btn" href="#script">演示脚本</a>
+          <a class="btn primary" href="../">打开交互原型</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">AI PRODUCT DOSSIER · DEMO</div>
+        <h1>先查清，<br /><em>再下判断。</em></h1>
+        <p class="lede">
+          13 张关键界面，覆盖首页、调查中、事实结果、按用途评测、证据抽屉、搜索关系图、
+          澄清、证据不足、失败与移动端。真交互请直接打开原型。
+        </p>
+        <div class="meta-row">
+          <span><b>技术</b> React 19 · Vite · Tailwind v4 · Motion</span>
+          <span><b>视口</b> 1440 × 900 / 390 × 844</span>
+          <span><b>数据</b> 设计样稿，来源链接为公开页面</span>
+        </div>
+
+        <div class="script" id="script">
+          <div>
+            <div class="num">01 / 提问</div>
+            <h3>从一句说法开始</h3>
+            <p>点首页任意示例。不需要先选产品、填用途、传文档。</p>
+          </div>
+          <div>
+            <div class="num">02 / 调查</div>
+            <h3>看它实际做了什么</h3>
+            <p>搜索、读取、受限、补查依次追加；“当前动作”来自真实事件，不显示假进度。</p>
+          </div>
+          <div>
+            <div class="num">03 / 追溯</div>
+            <h3>从结论回到原句</h3>
+            <p>点引用打开证据；原文、AI 译文、AI 归纳分开；关闭回到引用位置。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <div class="wrap">
+        <section class="group">
+          <div class="group-head"><h2>01 首页与调查</h2><span class="rule"></span><span class="count">FIG. 01 — 02</span></div>
+
+          <figure>
+            <img src="./01-home.png" alt="案卷搜索首页" loading="lazy" />
+            <figcaption><span class="tag">首页</span><span><b>一个提问框，三类示例。</b>事实、分歧、按用途；右侧是案卷柜与链路示意，条件收进「条件」。</span></figcaption>
+          </figure>
+
+          <figure>
+            <img src="./02-investigating.png" alt="调查进行中" loading="lazy" />
+            <figcaption><span class="tag">调查中</span><span><b>可追加的活动列表。</b>顶部保留原问题；搜索、读取、补查分别留痕；右侧同时显示分支、材料与读取受限。</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="group">
+          <div class="group-head"><h2>02 先回答，再给依据</h2><span class="rule"></span><span class="count">FIG. 03 — 04</span></div>
+
+          <figure>
+            <img src="./03-fact-result.png" alt="事实结果页" loading="lazy" />
+            <figcaption><span class="tag">事实结果</span><span><b>直接回答 + 规格表。</b>顶部是支持/冲突/不足/受限统计；比较表带引用与时点；来源总览在下方。</span></figcaption>
+          </figure>
+
+          <figure>
+            <img src="./04-evidence-drawer.png" alt="证据详情抽屉" loading="lazy" />
+            <figcaption><span class="tag">证据</span><span><b>点击一次看原句。</b>原文高亮、中文译文标为 AI 翻译、发布时间与获取时间分开；底部可打开原始页面。</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="group">
+          <div class="group-head"><h2>03 按用途评测</h2><span class="rule"></span><span class="count">FIG. 05 — 06</span></div>
+
+          <figure>
+            <img src="./05-usecase-verdict.png" alt="按用途评测结论" loading="lazy" />
+            <figcaption><span class="tag">有条件值得</span><span><b>先给结论与条件。</b>用于自动化工作流 · 个人使用 · 优先低成本；依据、限制、适用边界在同一屏内。</span></figcaption>
+          </figure>
+
+          <figure>
+            <img src="./06-usecase-capability.png" alt="能力对照表" loading="lazy" />
+            <figcaption><span class="tag">能力对照</span><span><b>相关维度优先，完整八维可展开。</b>“无证据”明确显示；不生成综合分、百分制或雷达分值。</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="group">
+          <div class="group-head"><h2>04 分歧与缺口</h2><span class="rule"></span><span class="count">FIG. 07 — 10</span></div>
+
+          <figure>
+            <img src="./07-conflict.png" alt="官方与独立实测的分歧" loading="lazy" />
+            <figcaption><span class="tag">分歧</span><span><b>支持、冲突、媒体复核分开列。</b>每句原句配中文译文与成立条件；媒体转述合并为同一上游，不计入独立来源。</span></figcaption>
+          </figure>
+
+          <figure>
+            <img src="./08-insufficient.png" alt="证据不足" loading="lazy" />
+            <figcaption><span class="tag">证据不足</span><span><b>已确认 / 还不能确定 / 查过哪些来源。</b>没有把“文档里没有”写成“产品不支持”；这是结论，不是失败。</span></figcaption>
+          </figure>
+
+          <figure>
+            <img src="./09-clarification.png" alt="简短澄清" loading="lazy" />
+            <figcaption><span class="tag">澄清</span><span><b>对象有实质歧义时只问一个问题。</b>不猜测、不要求补充官网或原始链接；确认后继续同一调查。</span></figcaption>
+          </figure>
+
+          <figure>
+            <img src="./10-failure.png" alt="调查失败" loading="lazy" />
+            <figcaption><span class="tag">失败</span><span><b>可理解的失败原因。</b>504 超时、已尝试动作、0 份材料；按后台允许的方式重试，而不是给一个假答案。</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="group">
+          <div class="group-head"><h2>05 搜索关系</h2><span class="rule"></span><span class="count">FIG. 11</span></div>
+          <figure>
+            <img src="./11-search-graph.png" alt="搜索关系图" loading="lazy" />
+            <figcaption><span class="tag">可展开</span><span><b>分支 → 查询 → 读取 → 结论。</b>虚线是补查；节点可点，能回到对应原句。默认不挡答案，只作为展开视图。</span></figcaption>
+          </figure>
+        </section>
+
+        <section class="group">
+          <div class="group-head"><h2>06 移动端</h2><span class="rule"></span><span class="count">FIG. 12 — 13</span></div>
+          <div class="phones">
+            <div>
+              <div class="phone"><img src="./12-mobile-result.png" alt="移动端结果页" loading="lazy" /></div>
+              <div class="phone-cap">单列阅读 · 来源表局部滚动</div>
+            </div>
+            <div>
+              <div class="phone"><img src="./13-mobile-evidence.png" alt="移动端证据底部面板" loading="lazy" /></div>
+              <div class="phone-cap">证据改为底部面板 · 关闭回到引用</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="note">
+          <b>样稿说明。</b>页面里的产品数字、社区引文与结论是设计样稿，结果页均带「样稿」标记；正式演示前需替换为真实调查结果。
+          来源链接指向可打开的公开页面。原型没有接入实时搜索，未知问题不会生成假答案。
+        </div>
+      </div>
+    </main>
+
+    <footer class="wrap">
+      <span>案卷 · 每句结论都应有出处</span>
+      <span>OFFICIAL CLAIM ≠ USER REPORT ≠ AI SUMMARY</span>
+    </footer>
+  </body>
+</html>

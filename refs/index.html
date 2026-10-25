@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>参考截图 · 案卷</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+SC:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f6f7f9;
+        --raised: #ffffff;
+        --ink: #0b1220;
+        --soft: #475467;
+        --faint: #667085;
+        --line: #e4e7ec;
+        --line-strong: #cfd6e0;
+        --seal: #1a73e8;
+        --seal-soft: #e8f0fe;
+        --serif: "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif;
+        --sans: "Inter", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+        --mono: "JetBrains Mono", Consolas, monospace;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0; background: var(--paper); color: var(--ink);
+        font-family: var(--sans); -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; }
+      ::selection { background: var(--seal); color: var(--raised); }
+      .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+      header {
+        position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--paper) 90%, transparent); backdrop-filter: blur(14px);
+      }
+      .top { height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+      .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+      .seal {
+        width: 28px; height: 28px; border: 0; border-radius: 8px; background: var(--seal);
+        display: grid; place-items: center; color: #fff; font-family: var(--serif);
+        font-weight: 600; font-size: 14px; transform: rotate(-3deg);
+      }
+      .brand b { font-family: var(--serif); font-size: 20px; letter-spacing: 0.1em; font-weight: 600; }
+      .brand span { color: var(--faint); font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.2em; }
+      .nav { display: flex; gap: 8px; }
+      .nav a {
+        text-decoration: none; font-size: 11px; color: var(--soft); border: 1px solid var(--line-strong);
+        background: var(--raised); border-radius: 999px; padding: 7px 13px; transition: .2s;
+      }
+      .nav a:hover { color: var(--seal); border-color: color-mix(in srgb, var(--seal) 40%, var(--line)); }
+      .intro { padding: 44px 0 26px; border-bottom: 1px solid var(--line); }
+      .kicker { font-family: var(--mono); font-size: 9px; letter-spacing: 0.24em; color: var(--faint); }
+      h1 { font-family: var(--serif); font-size: clamp(30px, 4.6vw, 46px); line-height: 1.2; margin: 14px 0 0; font-weight: 600; }
+      .intro p { margin: 14px 0 0; color: var(--soft); font-size: 13px; line-height: 1.85; max-width: 640px; }
+      main { padding: 8px 0 64px; }
+      .group { padding-top: 38px; }
+      .group-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+      .group-head h2 { margin: 0; font-family: var(--serif); font-size: 20px; font-weight: 600; letter-spacing: .03em; }
+      .group-head .rule { flex: 1; height: 1px; background: var(--line); }
+      .group-head a { font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; color: var(--seal); text-decoration: none; }
+      .group-head a:hover { text-decoration: underline; text-underline-offset: 3px; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .grid.one { grid-template-columns: 1fr; }
+      figure { margin: 0; }
+      figure a { display: block; text-decoration: none; }
+      img {
+        display: block; width: 100%; height: auto; border: 1px solid var(--line);
+        border-radius: 8px; background: var(--raised); box-shadow: 0 18px 40px -34px rgba(46,36,18,.45);
+        transition: border-color .2s, transform .2s;
+      }
+      figure a:hover img { border-color: var(--line-strong); transform: translateY(-1px); }
+      figcaption { margin-top: 8px; color: var(--faint); font-size: 11px; line-height: 1.65; display: flex; gap: 8px; }
+      figcaption b { color: var(--ink); font-weight: 500; white-space: nowrap; }
+      .note { margin-top: 36px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--faint); font-size: 11px; line-height: 1.9; }
+      .note b { color: var(--soft); font-weight: 500; }
+      footer { border-top: 1px solid var(--line); padding: 24px 0 36px; color: var(--faint); font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+      @media (max-width: 860px) {
+        .grid { grid-template-columns: 1fr; }
+        .nav a:first-child { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap top">
+        <a class="brand" href="../">
+          <span class="seal">案</span>
+          <b>案卷</b>
+          <span>REFERENCE</span>
+        </a>
+        <nav class="nav">
+          <a href="../demo/">演示画廊</a>
+          <a href="../">交互原型</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="intro wrap">
+      <div class="kicker">REFERENCE CAPTURES · 1440 × 900</div>
+      <h1>参考截图</h1>
+      <p>先挑交互与版式，再定组件。点击图片可打开原始来源。</p>
+    </section>
+
+    <main class="wrap">
+      <section class="group">
+        <div class="group-head">
+          <h2>MindSearch</h2><span class="rule"></span>
+          <a href="https://github.com/InternLM/MindSearch" target="_blank" rel="noreferrer">GitHub ↗</a>
+        </div>
+        <div class="grid">
+          <figure>
+            <a href="./01-mindsearch-repo.png" target="_blank"><img src="./01-mindsearch-repo.png" alt="MindSearch GitHub 仓库" loading="lazy" /></a>
+            <figcaption><b>仓库首屏</b>项目定位与演示入口</figcaption>
+          </figure>
+          <figure>
+            <a href="./04-mindsearch-ui.png" target="_blank"><img src="./04-mindsearch-ui.png" alt="MindSearch 搜索过程界面" loading="lazy" /></a>
+            <figcaption><b>搜索过程</b>子问题分支、查询与结果汇总</figcaption>
+          </figure>
+          <figure>
+            <a href="./03-mindsearch-online.png" target="_blank"><img src="./03-mindsearch-online.png" alt="MindSearch 在线入口现状" loading="lazy" /></a>
+            <figcaption><b>在线入口</b>现在是通用 Intern 对话，不是早期多查询演示</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>Gemini Deep Research</h2><span class="rule"></span>
+          <a href="https://workspace.google.com/blog/ai-and-machine-learning/meet-deep-research-your-new-ai-research-assistant" target="_blank" rel="noreferrer">官方文章 ↗</a>
+        </div>
+        <div class="grid">
+          <figure>
+            <a href="./05-gemini-deep-research.png" target="_blank"><img src="./05-gemini-deep-research.png" alt="Gemini Deep Research 官方文章" loading="lazy" /></a>
+            <figcaption><b>研究助手</b>计划、搜索与报告在同一体验里</figcaption>
+          </figure>
+          <figure>
+            <a href="./06-gemini-ui.png" target="_blank"><img src="./06-gemini-ui.png" alt="Gemini Deep Research 研究界面" loading="lazy" /></a>
+            <figcaption><b>界面</b>研究中的搜索与来源</figcaption>
+          </figure>
+          <figure>
+            <a href="./07-gemini-plan.png" target="_blank"><img src="./07-gemini-plan.png" alt="Gemini Deep Research 计划与报告" loading="lazy" /></a>
+            <figcaption><b>报告</b>引用与可继续追问的入口</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>Perplexity Deep Research</h2><span class="rule"></span>
+          <a href="https://www.perplexity.ai/en-GB/hub/products/deep-research" target="_blank" rel="noreferrer">官方页 ↗</a>
+        </div>
+        <div class="grid">
+          <figure>
+            <a href="./08-perplexity.png" target="_blank"><img src="./08-perplexity.png" alt="Perplexity Deep Research 官方页面" loading="lazy" /></a>
+            <figcaption><b>首屏</b>Deep Research 的定位与入口</figcaption>
+          </figure>
+          <figure>
+            <a href="./15-perplexity-structured.png" target="_blank"><img src="./15-perplexity-structured.png" alt="Perplexity 结构化研究" loading="lazy" /></a>
+            <figcaption><b>结构化研究</b>计划、子问题与报告</figcaption>
+          </figure>
+          <figure>
+            <a href="./16-perplexity-report.png" target="_blank"><img src="./16-perplexity-report.png" alt="Perplexity 报告与引用" loading="lazy" /></a>
+            <figcaption><b>报告</b>引用与交付格式</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>NotebookLM / Gemini Notebook</h2><span class="rule"></span>
+          <a href="https://notebook.google.com/trynow" target="_blank" rel="noreferrer">产品入口 ↗</a>
+        </div>
+        <div class="grid">
+          <figure>
+            <a href="./09-notebooklm.png" target="_blank"><img src="./09-notebooklm.png" alt="Gemini Notebook 入口" loading="lazy" /></a>
+            <figcaption><b>入口</b>基于来源的研究与思考伙伴</figcaption>
+          </figure>
+          <figure>
+            <a href="./14-notebooklm-citations.png" target="_blank"><img src="./14-notebooklm-citations.png" alt="NotebookLM 引用交互说明" loading="lazy" /></a>
+            <figcaption><b>引用</b>悬停看全文，点击跳到原句</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>Scite</h2><span class="rule"></span>
+          <a href="https://scite.ai/features" target="_blank" rel="noreferrer">Features ↗</a>
+        </div>
+        <div class="grid">
+          <figure>
+            <a href="./10-scite.png" target="_blank"><img src="./10-scite.png" alt="Scite 功能页" loading="lazy" /></a>
+            <figcaption><b>功能页</b>以证据为基础的研究工具</figcaption>
+          </figure>
+          <figure>
+            <a href="./11-scite-citations.png" target="_blank"><img src="./11-scite-citations.png" alt="Scite Smart Citations" loading="lazy" /></a>
+            <figcaption><b>Smart Citations</b>支持 / 对立 / 仅提及</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>Exa Websets</h2><span class="rule"></span>
+          <a href="https://websets.exa.ai/" target="_blank" rel="noreferrer">入口 ↗</a>
+        </div>
+        <div class="grid one">
+          <figure>
+            <a href="./12-websets.png" target="_blank"><img src="./12-websets.png" alt="Exa Websets 入口" loading="lazy" /></a>
+            <figcaption><b>结构化结果</b>筛选条件、结果表与来源（当前首页已转为 lead-gen 列表）</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div class="note">
+        <b>说明</b>：Perplexity 实时页被 Cloudflare 拦截，截图为官方页面的 Wayback 快照；MindSearch 在线入口已变为通用 Intern 对话；Websets 当前首页是 lead-gen 列表，旧的研究表格界面未公开。其余为实时页面截图。
+      </div>
+    </main>
+
+    <footer class="wrap">
+      <span>REFERENCE ONLY · 案卷</span>
+      <span>1440 × 900 · 2026-10-25</span>
+    </footer>
+  </body>
+</html>

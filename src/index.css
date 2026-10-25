@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", Georgia, serif;
+  --font-sans: "Inter", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  --color-paper: #f6f7f9;
+  --color-paper-raised: #ffffff;
+  --color-paper-deep: #eef1f5;
+  --color-ink: #0b1220;
+  --color-ink-soft: #475467;
+  --color-ink-faint: #667085;
+  --color-line: #e4e7ec;
+  --color-line-strong: #cfd6e0;
+  --color-seal: #1a73e8;
+  --color-seal-deep: #0b57d0;
+  --color-seal-soft: #e8f0fe;
+  --color-support: #1e7b4d;
+  --color-support-soft: #e7f4ec;
+  --color-conflict: #c0392b;
+  --color-conflict-soft: #fdecea;
+  --color-unclear: #b7791f;
+  --color-unclear-soft: #fef7e0;
+  --color-official: #1a73e8;
+  --color-official-soft: #e8f0fe;
+  --color-user: #b45309;
+  --color-user-soft: #fef3c7;
+  --color-third: #5f6368;
+  --color-third-soft: #eef0f2;
+
+  --shadow-sheet: 0 24px 70px -24px rgba(16, 24, 40, 0.28), 0 2px 8px rgba(16, 24, 40, 0.06);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 18px 40px -30px rgba(16, 24, 40, 0.22);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-seal);
+    color: var(--color-paper-raised);
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 999px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-seal);
+    outline-offset: 3px;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer utilities {
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    opacity: 0.055;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-size: 220px 220px;
+  }
+
+  .hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--color-line-strong) 55%, transparent) 0 1px,
+      transparent 1px 7px
+    );
+  }
+
+  .draw-line {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw-line 1.15s 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .quote-mark {
+    background-image: linear-gradient(var(--color-seal-soft), var(--color-seal-soft));
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    animation: mark-in 0.75s 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .soft-pulse {
+    animation: soft-pulse 2s ease-in-out infinite;
+  }
+
+  .scan-line {
+    animation: scan 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+}
+
+@keyframes draw-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes mark-in {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateX(-100%);
+  }
+  60%,
+  100% {
+    transform: translateX(340%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .draw-line,
+  .quote-mark,
+  .soft-pulse,
+  .scan-line {
+    animation: none;
+  }
+
+  .draw-line {
+    stroke-dashoffset: 0;
+  }
+
+  .quote-mark {
+    background-size: 100% 100%;
+  }
+}
+
+/* FoldText (adapted from React Bits) */
+.fold-text { display: inline-block; }
+.fold-line { display: block; perspective: 900px; }
+.fold-piece {
+  position: relative;
+  display: inline-block;
+  transform-origin: 50% 0%;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+.fold-piece::after {
+  content: attr(data-fold-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(180deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.14) 46%, rgba(255,255,255,0.22) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0;
+  animation: fold-crease 1.15s cubic-bezier(0.16, 1, 0.3, 1) var(--fold-delay, 0s) forwards;
+}
+@keyframes fold-crease {
+  0% { opacity: 0.55; }
+  48% { opacity: 0.2; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fold-piece::after { animation: none; opacity: 0; }
+}
